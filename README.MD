@@ -1,6 +1,10 @@
 # Wktline 项目管理服务端
 > 温馨提示：本项目只用作个人学习，不可商用，如需商用，请联系作者授权，微信：`kr_39hd`
 
+前端项目地址：[前端github](https://github.com/umlink/wktline-client)
+
+界面内容查看和介绍：[项目详细介绍](https://juejin.cn/post/7410062139275984936)
+
 如何启动项目
 1. 基础环境搭建，请移步 [GoFrame](https://goframe.org/)
 2. 安装 mysql8
