@@ -1,0 +1,21 @@
+
+# CLI tool, only in development environment.
+# https://goframe.org/pages/viewpage.action?pageId=3673173
+gfcli:
+  build:
+    name: "main"
+    arch: "386"
+    system: "linux"
+    packSrc: "resource,manifest" # manifest
+    path: "./temp"
+    cgo: 0
+  docker:
+    build: "-a amd64 -s linux -p temp -ew"
+    tagPrefixes:
+      - my.image.pub/my-app
+  gen:
+    dao: # link-root-pwd
+      link: "mysql:root:password!@tcp(127.0.0.1:3306)/wktline?loc=Local&parseTime=true"
+      debug: true,
+      descriptionTag: true
+      noModelComment: true

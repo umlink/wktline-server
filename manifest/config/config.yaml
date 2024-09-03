@@ -1,0 +1,33 @@
+server:
+  address:     ":9002"
+  clientMaxBodySize: "200MB" # 上传文件最大值
+  openapiPath: "/api.json"
+  swaggerPath: "/swagger"
+
+logger:
+  level : "all"
+  stdout: true
+
+database:
+  default:
+    link: "mysql:root:password!@tcp(127.0.0.1:3306)/wktline?loc=Local&parseTime=true"
+    debug: true
+    role: "master"
+    charset: "utf8"
+
+jwtConfig:
+  cookieKey: "__wkt_tk__"                  # cookie key
+  encryptionKey: "_wkt_#GHO*BIN$Q)|(O_O)!" # 加密秘钥
+  jwtKey: 'Token'                          # jwt 取授权标记的字段名
+  jwtIdentityKey: 'wkt'
+  jwtExpire: 30                            # 单位：d(天)
+
+# 文件上传设置 - 七牛云
+# https://portal.qiniu.com/user/key
+upload:
+  accessKey: ""
+  secretKey: ""
+  bucket: ""
+  server: "" # 访问域名，如 https://static.wktline.com
+  path: "" # 本地临时文件保存目录
+
