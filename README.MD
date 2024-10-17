@@ -1,5 +1,4 @@
 # Wktline 项目管理服务端
-> 作者微信：`kr_39hd`
 
 前端项目地址：[前端github](https://github.com/umlink/wktline-client)
 
