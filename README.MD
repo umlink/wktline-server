@@ -1,5 +1,5 @@
 # Wktline 项目管理服务端
-> 温馨提示：本项目只用作个人学习，不可商用，如需商用，请联系作者授权，微信：`kr_39hd`
+> 作者微信：`kr_39hd`
 
 前端项目地址：[前端github](https://github.com/umlink/wktline-client)
 
