@@ -1,0 +1,34 @@
+FROM golang
+
+WORKDIR /app
+RUN git clone https://github.com/umlink/wktline-server.git && \ 
+    cd wktline-server && \
+	go mod download && \
+	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o main main.go 
+	
+FROM node:18.20
+WORKDIR /app
+RUN git clone https://github.com/umlink/wktline-client.git && \ 
+    cd wktline-client && \
+	yarn && \
+	yarn run build 
+
+FROM caddy
+ENV WORKDIR /opt/app/
+COPY --from=0 /app/wktline-server/main $WORKDIR/main
+COPY --from=1 /app/wktline-client/dist $WORKDIR/dist
+COPY ./startup $WORKDIR/startup
+COPY ./manifest/config/config.yaml $WORKDIR/manifest/config/config.yaml.example
+
+ENV APP_KEY _wkt_#GHO*BIN$Q)|(O_O)!
+ENV DB_HOST 127.0.0.1
+ENV DB_PORT 3306
+ENV DB_USERNAME root
+ENV DB_PASSWORD root
+ENV DB_NAME wktline
+
+EXPOSE 80
+
+RUN chmod +x $WORKDIR/startup
+WORKDIR $WORKDIR
+CMD ./startup

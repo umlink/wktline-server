@@ -1,0 +1,38 @@
+#!/bin/sh
+
+cat <<EOF >"/etc/caddy/Caddyfile"
+:80 {
+  root * /opt/app/dist/
+
+  route {
+    @wktApi {
+      path /wkt-api/*
+    }
+    route @wktApi {
+      uri strip_prefix /wkt-api
+      reverse_proxy 127.0.0.1:9002
+    }
+
+    @notFile {
+      not file
+    }
+    rewrite @notFile /index.html
+    file_server
+  }
+}
+EOF
+
+sed -e "s/#APP_KEY/$APP_KEY/g" \
+ -e "s/#DB_HOST/$DB_HOST/g" \
+ -e "s/#DB_PORT/$DB_PORT/g" \
+ -e "s/#DB_USERNAME/$DB_USERNAME/g" \
+ -e "s/#DB_PASSWORD/$DB_PASSWORD/g" \
+ -e "s/#DB_NAME/$DB_NAME/g" \
+ -e "s/#QN_AK/$QN_AK/g" \
+ -e "s/#QN_SK/$QN_SK/g" \
+ -e "s/#QN_BUCKET/$QN_BUCKET/g" \
+ -e "s/#QN_HOST/$QN_HOST/g" \
+ /opt/app/manifest/config/config.yaml.example > /opt/app/manifest/config/config.yaml
+
+caddy start -c /etc/caddy/Caddyfile
+/opt/app/main
